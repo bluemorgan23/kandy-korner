@@ -18,10 +18,10 @@ class ApplicationView extends Component {
         { id: 4, name: "Mary"}
     ];
 
-    candyTypesFromAPI = [
-        { id: 1, type: "Chocolate"},
-        { id: 2, type: "Hard Candy"},
-        { id: 3, type: "Gummies"}
+    candyTypes = [
+        { id: 1, name: "Chocolate"},
+        { id: 2, name: "Hard Candy"},
+        { id: 3, name: "Gummies"}
     ];
 
     candiesFromAPI = [
@@ -33,7 +33,7 @@ class ApplicationView extends Component {
     state = {
         stores: this.storesFromAPI,
         employees: this.employeesFromAPI,
-        candyTypes: this.candyTypesFromAPI,
+        candyTypes: this.candyTypes,
         candies: this.candiesFromAPI
     }
 
@@ -47,7 +47,7 @@ class ApplicationView extends Component {
                     return <EmployeeList employees={this.state.employees} />
                 }} />
                 <Route exact path="/candy" render={(props) => {
-                    return <CandyList candies={this.state.candies} />
+                    return <CandyList candies={this.state.candies} candyTypes={this.state.candyTypes} />
                 }} />
             </React.Fragment>
         )
