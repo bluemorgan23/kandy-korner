@@ -15,6 +15,7 @@ class CandyList extends Component {
                     {
                         this.props.candyTypes.find(candyType => candyType.id === candy.candyTypeId).name
                     }
+                    <button onClick={() => this.props.deleteCandy(candy.id)}>Delete</button>
                     </div>
                 )
             }

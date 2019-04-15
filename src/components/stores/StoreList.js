@@ -8,7 +8,8 @@ class StoreList extends Component {
             {
                 this.props.stores.map(store => 
                     <div key={store.id}>
-                        {store.name}
+                        <h5>{store.name}</h5>
+                        <p>{store.address}</p>
                     </div>
                 )
             }
