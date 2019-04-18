@@ -16,6 +16,7 @@ import EmployeeForm from './employees/EmployeeForm';
 import CandyForm from "./candies/CandyForm"
 import Login from "./authentication/Login"
 import EmployeeEditForm from "./employees/EmployeeEditForm"
+import CandyEditForm from "./candies/CandyEditForm"
 
 class ApplicationView extends Component {
 
@@ -53,6 +54,14 @@ class ApplicationView extends Component {
 
     addCandy = candy => {
         return CandyManager.post(candy)
+            .then(() => CandyManager.getAll())
+            .then(candies => this.setState({
+                candies: candies
+            }))
+    }
+
+    updateCandy = candy => {
+        return CandyManager.put(candy)
             .then(() => CandyManager.getAll())
             .then(candies => this.setState({
                 candies: candies
@@ -130,7 +139,7 @@ class ApplicationView extends Component {
                 }} />
                 <Route
                     exact path="/employees/:employeeId(\d+)/edit" render={props => {
-                        return <EmployeeEditForm {...props} employees={this.state.employees} updateEmployee={this.updateEmployee} locations={this.state.stores}/>
+                        return <EmployeeEditForm {...props} employees={this.state.employees} updateEmployee={this.updateEmployee} locations={this.state.stores} />
                     }}
                 />
                 <Route exact path="/candy" render={(props) => {
@@ -161,6 +170,11 @@ class ApplicationView extends Component {
                     return <CandyDetail candy={candy}
                         deleteCandy={this.deleteCandy} />
                 }} />
+                <Route
+                    path="/candy/:candyId(\d+)/edit" render={props => {
+                        return <CandyEditForm {...props} candies={this.state.candies} updateCandy={this.updateCandy} candyTypes={this.state.candyTypes}/>
+                    }}
+                />
                 <Route path="/search" render={(props) => {
                     return <SearchData />
                 }} />

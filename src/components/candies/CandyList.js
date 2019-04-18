@@ -20,14 +20,17 @@ class CandyList extends Component {
                 <h3>Candy</h3>
                 {
                     this.props.candies.map(candy => 
-                        <div key={candy.id}>
+                        <div className="card" key={candy.id}>
                             <Link to={`/candy/${candy.id}`}>{candy.name}</Link>
                             {" "}of type{" "}
                         
                         {
                             this.props.candyTypes.find(candyType => candyType.id === candy.candyTypeId).name
                         }
-                        <button onClick={() => this.props.deleteCandy(candy.id)}>Delete</button>
+                        <button className="btn btn-warning" type="button" onClick={() => {
+                            this.props.history.push(`/candy/${candy.id}/edit`)
+                        }}>Edit</button>
+                        <button className="btn btn-danger"onClick={() => this.props.deleteCandy(candy.id)}>Delete</button>
                         </div>
                     )
                 }
