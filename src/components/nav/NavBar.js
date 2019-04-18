@@ -5,22 +5,22 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 class NavBar extends Component {
 
-    // handleKeyDown(KeyboardEvent) {
-    //     let currentList = [];
-    //     let newList = [];
+    handleKeyDown = (KeyboardEvent) => {
+        // let currentList = [];
+        // let newList = [];
 
-    //     if (KeyboardEvent.key === "Enter" && KeyboardEvent.target.value !== ""){
-            
-    //     } 
+        if (KeyboardEvent.key === "Enter" && KeyboardEvent.target.value !== ""){
+            console.log("test")
+        } 
 
-    // }
+    }
 
     render() {
         return (
             <nav className="navbar navbar-light fixed-top light-blue flex-md-nowrap p-0 shadow">
                 <ul className="nav nav-pills">
                     <li className="nav-item">
-                        <Link className="nav-link" to="/">Locations</Link>
+                        <Link className="nav-link" to="/stores">Locations</Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/candy">Candy</Link>

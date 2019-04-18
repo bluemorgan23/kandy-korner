@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from "react-router-dom"
 
 class EmployeeList extends Component {
 
@@ -9,7 +10,7 @@ class EmployeeList extends Component {
             {
                 this.props.employees.map(employee => 
                     <div key={employee.id}>
-                        {employee.name}
+                        <Link to={`/employees/${employee.id}`} className="nav-link">{employee.name}</Link>
                     </div>
                 )
             }
