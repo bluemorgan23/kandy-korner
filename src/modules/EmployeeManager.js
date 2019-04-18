@@ -16,5 +16,14 @@ export default {
             },
             body: JSON.stringify(employee)
         }).then(r => r.json())
+    },
+    put(employee) {
+        return fetch(`${baseURL}/${employee.id}`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(employee)
+        }).then(r => r.json())
     }
 }

@@ -37,10 +37,10 @@
       "locationId": 2
     },
     {
-      "name": "test",
-      "phoneNumber": "test",
-      "location": 2,
-      "id": 5
+      "id": 5,
+      "name": "edit",
+      "phoneNumber": "901",
+      "locationId": 1
     },
     {
       "name": "test",
@@ -66,13 +66,13 @@
   "candiesFromAPI": [
     {
       "id": 1,
-      "name": "Wonder Ball",
-      "candyTypeId": 1
+      "name": "Edit",
+      "candyTypeId": 2
     },
     {
       "id": 2,
       "name": "Blow Pops",
-      "candyTypeId": 2
+      "candyTypeId": 3
     }
   ]
 }

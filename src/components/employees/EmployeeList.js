@@ -7,25 +7,33 @@ class EmployeeList extends Component {
     render() {
         return (
             <React.Fragment>
-            <div className="employeeButton">
-                <button type="button"
-                            className="btn btn-success"
-                            onClick={() => {
-                                this.props.history.push("/employees/new")}
-                            }>
+                <h3>Employees</h3>
+                <div className="employeeButton">
+                    <button type="button"
+                        className="btn btn-success"
+                        onClick={() => {
+                            this.props.history.push("/employees/new")
+                        }
+                        }>
                         Hire Employee
                 </button>
-            </div>
-            <section className="employees">
-            <h3>Employees</h3>
-            {
-                this.props.employees.map(employee => 
-                    <div key={employee.id}>
-                        <Link to={`/employees/${employee.id}`} className="nav-link">{employee.name}</Link>
-                    </div>
-                )
-            }
-            </section>
+                </div>
+                <section className="employees">
+                    {
+                        this.props.employees.map(employee =>
+                            <div className="card employeeCard" key={employee.id}>
+                                <Link to={`/employees/${employee.id}`} className="nav-link">{employee.name}</Link>
+                                <button
+                                    type="button"
+                                    className="btn btn-success"
+                                    onClick={() => {
+                                        this.props.history.push(`/employees/${employee.id}/edit`);
+                                    }}
+                                >Edit</button>
+                            </div>
+                        )
+                    }
+                </section>
             </React.Fragment>
         )
     }

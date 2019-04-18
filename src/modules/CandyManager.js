@@ -23,5 +23,14 @@ export default {
             },
             body: JSON.stringify(candy)
         }).then(r => r.json())
+    },
+    put(candy) {
+        return fetch(`${baseURL}/${candy.id}`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(candy)
+        }).then(r => r.json())
     }
 }
