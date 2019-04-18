@@ -14,19 +14,23 @@
   "employeesFromAPI": [
     {
       "id": 1,
-      "name": "Chris"
+      "name": "Chris",
+      "phoneNumber": "609-8843"
     },
     {
       "id": 2,
-      "name": "Harry"
+      "name": "Harry",
+      "phoneNumber": "345-8632"
     },
     {
       "id": 3,
-      "name": "Hannah"
+      "name": "Hannah",
+      "phoneNumber": "043-1321"
     },
     {
       "id": 4,
-      "name": "Mary"
+      "name": "Mary",
+      "phoneNumber": "840-1321"
     }
   ],
   "candyTypes": [
@@ -53,11 +57,6 @@
       "id": 2,
       "name": "Blow Pops",
       "candyTypeId": 2
-    },
-    {
-      "id": 3,
-      "name": "Gummy Bears",
-      "candyTypeId": 3
     }
   ]
 }
