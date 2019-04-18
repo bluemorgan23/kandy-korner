@@ -1,11 +1,22 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom"
+import "./employeeList.css"
 
 class EmployeeList extends Component {
 
     render() {
         return (
-            <section className="content">
+            <React.Fragment>
+            <div className="employeeButton">
+                <button type="button"
+                            className="btn btn-success"
+                            onClick={() => {
+                                this.props.history.push("/employees/new")}
+                            }>
+                        Hire Employee
+                </button>
+            </div>
+            <section className="employees">
             <h3>Employees</h3>
             {
                 this.props.employees.map(employee => 
@@ -15,6 +26,7 @@ class EmployeeList extends Component {
                 )
             }
             </section>
+            </React.Fragment>
         )
     }
 }

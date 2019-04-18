@@ -1,6 +1,6 @@
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from "react"
-// import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import StoreList from "./stores/StoreList"
 import EmployeeList from "./employees/EmployeeList"
 import CandyList from "./candies/CandyList"
@@ -12,6 +12,9 @@ import TypeManager from "../modules/TypeManager"
 import CandyDetail from "./candies/CandyDetails"
 import StoreDetail from "./stores/StoreDetails"
 import EmployeeDetail from './employees/EmployeeDetail';
+import EmployeeForm from './employees/EmployeeForm';
+import CandyForm from "./candies/CandyForm"
+import Login from "./authentication/Login"
 
 class ApplicationView extends Component {
 
@@ -21,6 +24,9 @@ class ApplicationView extends Component {
         candyTypes: [],
         candies: []
     }
+
+    // Check if credentials are in local storage
+    isAuthenticated = () => sessionStorage.getItem("credentials")
 
     componentDidMount() {
         const newState = {}
@@ -44,11 +50,33 @@ class ApplicationView extends Component {
             }))
     }
 
+    addCandy = candy => {
+        return CandyManager.post(candy)
+            .then(() => CandyManager.getAll())
+            .then(candies => this.setState({
+                candies: candies
+            }))
+    }
+
+    addEmployee = employee => {
+        return EmployeeManager.post(employee)
+            .then(() => EmployeeManager.getAll())
+            .then(employees => this.setState({
+                employees: employees
+            }))
+    }
+
     render() {
         return (
             <React.Fragment>
+                <Route path="/login" component={Login} />
                 <Route exact path="/stores" render={(props) => {
-                    return <StoreList stores={this.state.stores} />
+                    if(this.isAuthenticated()) {
+                        return <StoreList stores={this.state.stores} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                    
                 }} />
                 <Route exact path="/stores/:storeId(\d+)" render={(props) => {
                     // Find the animal with the id of the route parameter
@@ -58,13 +86,24 @@ class ApplicationView extends Component {
 
                     // If the animal wasn't found, create a default one
                     if (!store) {
-                       store = { id: 404, name: "404"}
+                        store = { id: 404, name: "404" }
                     }
 
                     return <StoreDetail store={store} />
                 }} />
                 <Route exact path="/employees" render={(props) => {
-                    return <EmployeeList employees={this.state.employees} />
+                    if(this.isAuthenticated()) {
+                       return <EmployeeList {...props} employees={this.state.employees} locations={this.state.locations}/> 
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                    
+                }} />
+                <Route exact path="/employees/new" render={(props) => {
+                    return <EmployeeForm {...props}
+                        addEmployee={this.addEmployee}
+                        employees={this.state.employees} 
+                        locations={this.state.stores}/>
                 }} />
                 <Route exact path="/employees/:employeeId(\d+)" render={(props) => {
                     // Find the animal with the id of the route parameter
@@ -74,14 +113,25 @@ class ApplicationView extends Component {
 
                     // If the animal wasn't found, create a default one
                     if (!employee) {
-                       employee = { id: 404, name: "404" }
+                        employee = { id: 404, name: "404" }
                     }
 
                     return <EmployeeDetail employee={employee}
                         deleteEmployee={this.deleteEmployee} />
                 }} />
                 <Route exact path="/candy" render={(props) => {
-                    return <CandyList deleteCandy={this.deleteCandy} candies={this.state.candies} candyTypes={this.state.candyTypes} />
+                    if (this.isAuthenticated()) {
+                        return <CandyList {...props} deleteCandy={this.deleteCandy} candies={this.state.candies} candyTypes={this.state.candyTypes} />
+                    } else {
+                        return <Redirect to="/login" />
+                    }
+                    
+                }} />
+                <Route exact path="/candy/new" render={(props) => {
+                    return <CandyForm {...props}
+                        addCandy={this.addCandy}
+                        candyType={this.state.candyTypes} 
+                        candies={this.state.candies}/>
                 }} />
                 <Route exact path="/candy/:candyId(\d+)" render={(props) => {
                     // Find the animal with the id of the route parameter
@@ -91,7 +141,7 @@ class ApplicationView extends Component {
 
                     // If the animal wasn't found, create a default one
                     if (!candy) {
-                       candy = { id: 404, name: "404", breed: "Dog not found" }
+                        candy = { id: 404, name: "404", breed: "Dog not found" }
                     }
 
                     return <CandyDetail candy={candy}
@@ -105,4 +155,4 @@ class ApplicationView extends Component {
     }
 }
 
-export default ApplicationView
+export default withRouter(ApplicationView)

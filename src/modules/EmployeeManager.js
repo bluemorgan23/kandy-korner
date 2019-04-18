@@ -7,5 +7,14 @@ export default {
 
     getAll() {
         return fetch(baseURL).then(r => r.json())
+    },
+    post(employee) {
+        return fetch(`${baseURL}`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(employee)
+        }).then(r => r.json())
     }
 }
