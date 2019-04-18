@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom"
+import "./employeeList.css"
 
 class EmployeeList extends Component {
 
@@ -15,7 +16,7 @@ class EmployeeList extends Component {
                         Hire Employee
                 </button>
             </div>
-            <section className="content">
+            <section className="employees">
             <h3>Employees</h3>
             {
                 this.props.employees.map(employee => 

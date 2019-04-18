@@ -13,6 +13,7 @@ import CandyDetail from "./candies/CandyDetails"
 import StoreDetail from "./stores/StoreDetails"
 import EmployeeDetail from './employees/EmployeeDetail';
 import EmployeeForm from './employees/EmployeeForm';
+import CandyForm from "./candies/CandyForm"
 
 class ApplicationView extends Component {
 
@@ -39,6 +40,14 @@ class ApplicationView extends Component {
 
     deleteCandy = id => {
         return CandyManager.delete(id)
+            .then(() => CandyManager.getAll())
+            .then(candies => this.setState({
+                candies: candies
+            }))
+    }
+
+    addCandy = candy => {
+        return CandyManager.post(candy)
             .then(() => CandyManager.getAll())
             .then(candies => this.setState({
                 candies: candies
@@ -96,7 +105,13 @@ class ApplicationView extends Component {
                         deleteEmployee={this.deleteEmployee} />
                 }} />
                 <Route exact path="/candy" render={(props) => {
-                    return <CandyList deleteCandy={this.deleteCandy} candies={this.state.candies} candyTypes={this.state.candyTypes} />
+                    return <CandyList {...props} deleteCandy={this.deleteCandy} candies={this.state.candies} candyTypes={this.state.candyTypes} />
+                }} />
+                <Route exact path="/candy/new" render={(props) => {
+                    return <CandyForm {...props}
+                        addCandy={this.addCandy}
+                        candyType={this.state.candyTypes} 
+                        candies={this.state.candies}/>
                 }} />
                 <Route exact path="/candy/:candyId(\d+)" render={(props) => {
                     // Find the animal with the id of the route parameter
