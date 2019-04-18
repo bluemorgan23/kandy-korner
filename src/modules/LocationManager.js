@@ -1,4 +1,4 @@
-const baseURL = "http://localhost:5002/storesFromAPI"
+const baseURL = "http://localhost:5002/locations"
 
 export default {
     get(id) {

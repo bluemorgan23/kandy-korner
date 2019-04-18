@@ -1,6 +1,6 @@
 import { Route } from 'react-router-dom'
 import React, { Component } from "react"
-// import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import StoreList from "./stores/StoreList"
 import EmployeeList from "./employees/EmployeeList"
 import CandyList from "./candies/CandyList"
@@ -12,6 +12,7 @@ import TypeManager from "../modules/TypeManager"
 import CandyDetail from "./candies/CandyDetails"
 import StoreDetail from "./stores/StoreDetails"
 import EmployeeDetail from './employees/EmployeeDetail';
+import EmployeeForm from './employees/EmployeeForm';
 
 class ApplicationView extends Component {
 
@@ -44,6 +45,14 @@ class ApplicationView extends Component {
             }))
     }
 
+    addEmployee = employee => {
+        return EmployeeManager.post(employee)
+            .then(() => EmployeeManager.getAll())
+            .then(employees => this.setState({
+                employees: employees
+            }))
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -58,13 +67,19 @@ class ApplicationView extends Component {
 
                     // If the animal wasn't found, create a default one
                     if (!store) {
-                       store = { id: 404, name: "404"}
+                        store = { id: 404, name: "404" }
                     }
 
                     return <StoreDetail store={store} />
                 }} />
                 <Route exact path="/employees" render={(props) => {
-                    return <EmployeeList employees={this.state.employees} />
+                    return <EmployeeList {...props} employees={this.state.employees} locations={this.state.locations}/>
+                }} />
+                <Route exact path="/employees/new" render={(props) => {
+                    return <EmployeeForm {...props}
+                        addEmployee={this.addEmployee}
+                        employees={this.state.employees} 
+                        locations={this.state.stores}/>
                 }} />
                 <Route exact path="/employees/:employeeId(\d+)" render={(props) => {
                     // Find the animal with the id of the route parameter
@@ -74,7 +89,7 @@ class ApplicationView extends Component {
 
                     // If the animal wasn't found, create a default one
                     if (!employee) {
-                       employee = { id: 404, name: "404" }
+                        employee = { id: 404, name: "404" }
                     }
 
                     return <EmployeeDetail employee={employee}
@@ -91,7 +106,7 @@ class ApplicationView extends Component {
 
                     // If the animal wasn't found, create a default one
                     if (!candy) {
-                       candy = { id: 404, name: "404", breed: "Dog not found" }
+                        candy = { id: 404, name: "404", breed: "Dog not found" }
                     }
 
                     return <CandyDetail candy={candy}
@@ -105,4 +120,4 @@ class ApplicationView extends Component {
     }
 }
 
-export default ApplicationView
+export default withRouter(ApplicationView)

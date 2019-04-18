@@ -1,5 +1,5 @@
 {
-  "storesFromAPI": [
+  "locations": [
     {
       "id": 1,
       "name": "Kandy North",
@@ -15,22 +15,32 @@
     {
       "id": 1,
       "name": "Chris",
-      "phoneNumber": "609-8843"
+      "phoneNumber": "609-8843",
+      "locationId": 1
     },
     {
       "id": 2,
       "name": "Harry",
-      "phoneNumber": "345-8632"
+      "phoneNumber": "345-8632",
+      "locationId": 1
     },
     {
       "id": 3,
       "name": "Hannah",
-      "phoneNumber": "043-1321"
+      "phoneNumber": "043-1321",
+      "locationId": 2
     },
     {
       "id": 4,
       "name": "Mary",
-      "phoneNumber": "840-1321"
+      "phoneNumber": "840-1321",
+      "locationId": 2
+    },
+    {
+      "name": "test",
+      "phoneNumber": "test",
+      "location": 2,
+      "id": 5
     }
   ],
   "candyTypes": [
