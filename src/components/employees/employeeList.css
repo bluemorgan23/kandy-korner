@@ -7,3 +7,17 @@
 .employeeForm {
     margin: 0 10px 0 10px
 }
+
+.employeeCard {
+    display: flex;
+    flex-direction: row;
+    max-width: 20%;
+    justify-content: space-evenly;
+    margin: 10px
+}
+
+.employees {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly
+}
